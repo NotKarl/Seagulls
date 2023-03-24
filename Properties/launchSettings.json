@@ -1,0 +1,14 @@
+{
+  "profiles": {
+    "Seagulls": {
+      "commandName": "Project"
+    },
+    "Profile 1": {
+      "commandName": "Executable",
+      "executablePath": "C:\\Users\\Student\\Documents\\Godot_v3.4.4-stable_mono_win64\\Godot_v3.4.4-stable_mono_win64.exe",
+      "commandLineArgs": "--path.--verbose",
+      "workingDirectory": ".",
+      "nativeDebugging": true
+    }
+  }
+}
