@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="PackedScene" uid="uid://cb55swkiydxy" path="res://Characters/player_snake.tscn" id="1_mg81s"]
+
+[node name="GameLevel" type="Node2D"]
+
+[node name="PayerSnake" parent="." instance=ExtResource("1_mg81s")]
+position = Vector2(287, 208)
