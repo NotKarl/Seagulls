@@ -3,7 +3,7 @@ using System;
 
 public partial class player_snake : CharacterBody2D
 {
-    [Export] int speed = 1;
+    [Export] int speed = 3;
 	Vector2 InputDirection = new(0, 0);
     Vector2 Up = new(0, -1);
     Vector2 Down = new(0, 1);
@@ -39,18 +39,17 @@ public partial class player_snake : CharacterBody2D
             InputDirection = new(1, 0);
         }
 
-        Velocity = InputDirection*speed;
+        var collision = MoveAndCollide(InputDirection*speed);
+        if (collision != null) { _CollectApple(); }
 
-        MoveAndSlide();
 
-        GD.Print(Position);
         if (Position.X < 0) { Position = new Vector2(windowWidth, Position.Y); }
         if (Position.X > windowWidth) { Position = new Vector2(0, Position.Y); }
 
         if (Position.Y < 0) { Position = new Vector2(Position.X, windowHeight); }
         if (Position.Y > windowHeight) { Position = new Vector2(Position.X, 0); }
     }
-    public void _DestroyApple()
+    public void _CollectApple()
     {
         applespawner._SpawnApple();
     }

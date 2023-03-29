@@ -3,10 +3,12 @@ using System;
 
 public partial class apple_spawner_new : Node2D
 {
+	int countNumber = -1;
 	int windowWidth, windowHeight;
 	Vector2 applePos;
 	Random rand = new Random();
 	Node2D apple;
+	Label counter;
 
     public override void _Ready()
 	{
@@ -14,6 +16,7 @@ public partial class apple_spawner_new : Node2D
 		windowHeight = (int)GetViewport().GetVisibleRect().Size.Y;
 
 		apple = GetTree().Root.GetNode("GameLevel").GetNode<Node2D>("CollectableApple");
+		counter = GetTree().Root.GetNode("GameLevel").GetNode<Control>("Control").GetNode<Label>("Count");
 
         _SpawnApple();
 	}
@@ -26,6 +29,8 @@ public partial class apple_spawner_new : Node2D
 	{
 		applePos = new Vector2(rand.Next(11,windowWidth-10), rand.Next(11,windowHeight-10));
 		apple.Position = applePos;
-		GD.Print(applePos);
+		countNumber++;
+		GD.Print(countNumber,"  ", applePos);
+		counter.Text = countNumber.ToString() + " points";
     }
 }
