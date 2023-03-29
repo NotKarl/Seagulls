@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://cxhw53twuruco"]
+[gd_scene load_steps=5 format=3 uid="uid://cxhw53twuruco"]
 
 [ext_resource type="Script" path="res://Levels/game_level.cs" id="1_k1gia"]
 [ext_resource type="PackedScene" uid="uid://cb55swkiydxy" path="res://Characters/player_snake.tscn" id="1_mg81s"]
+[ext_resource type="PackedScene" uid="uid://cqiwr1gnqemdw" path="res://Levels/collectable_apple.tscn" id="3_u5hl1"]
+[ext_resource type="PackedScene" uid="uid://8p6lbnl1p816" path="res://Levels/apple_spawner.tscn" id="4_1vel7"]
 
 [node name="GameLevel" type="Node2D"]
 script = ExtResource("1_k1gia")
@@ -9,3 +11,7 @@ script = ExtResource("1_k1gia")
 [node name="PlayerSnake" parent="." instance=ExtResource("1_mg81s")]
 position = Vector2(287, 208)
 speed = 200
+
+[node name="CollectableApple" parent="." instance=ExtResource("3_u5hl1")]
+
+[node name="AppleSpawner" parent="." instance=ExtResource("4_1vel7")]

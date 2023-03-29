@@ -1,7 +1,9 @@
 using Godot;
 using System;
-public partial class game_level : Node2D
+
+public partial class apple_spawner_new : Node2D
 {
+	
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
