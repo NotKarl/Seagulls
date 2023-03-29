@@ -29,14 +29,20 @@ public partial class player_snake : CharacterBody2D
         {
             InputDirection = new(1, 0);
         }
-        GD.Print(InputDirection);
 
         Velocity = InputDirection*speed;
 
         MoveAndSlide();
 	}
-
+    
     public override void _Process(double delta)
     {
+        
+        GD.Print(Position);
+        if (Position.X < 0) { Position = new Vector2(GetViewport().GetVisibleRect().Size.X, Position.Y); }
+        if (Position.X > GetViewport().GetVisibleRect().Size.X) { Position = new Vector2(0, Position.Y); }
+
+        if (Position.Y < 0) { Position = new Vector2(Position.X, GetViewport().GetVisibleRect().Size.Y); }
+        if (Position.Y > GetViewport().GetVisibleRect().Size.Y) { Position = new Vector2(Position.X, 0); }
     }
 }

@@ -6,5 +6,6 @@
 [node name="GameLevel" type="Node2D"]
 script = ExtResource("1_k1gia")
 
-[node name="PayerSnake" parent="." instance=ExtResource("1_mg81s")]
+[node name="PlayerSnake" parent="." instance=ExtResource("1_mg81s")]
 position = Vector2(287, 208)
+speed = 200
