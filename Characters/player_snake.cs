@@ -10,8 +10,17 @@ public partial class player_snake : CharacterBody2D
     Vector2 Left = new(-1, 0);
     Vector2 Right = new(1, 0);
 
+    apple_spawner_new applespawner;
 
-	public override void _PhysicsProcess(double delta)
+    int windowWidth, windowHeight;
+    public override void _Ready()
+    {
+        windowWidth = (int)GetViewport().GetVisibleRect().Size.X;
+        windowHeight = (int)GetViewport().GetVisibleRect().Size.Y;
+
+        applespawner = GetTree().Root.GetNode("GameLevel").GetNode<apple_spawner_new>("AppleSpawner");
+    }
+    public override void _PhysicsProcess(double delta)
 	{
 		base._PhysicsProcess(delta);
 		if (Input.IsActionJustPressed("Up") && !(InputDirection == Down)) {
@@ -33,16 +42,16 @@ public partial class player_snake : CharacterBody2D
         Velocity = InputDirection*speed;
 
         MoveAndSlide();
-	}
-    
-    public override void _Process(double delta)
-    {
-        
-        GD.Print(Position);
-        if (Position.X < 0) { Position = new Vector2(GetViewport().GetVisibleRect().Size.X, Position.Y); }
-        if (Position.X > GetViewport().GetVisibleRect().Size.X) { Position = new Vector2(0, Position.Y); }
 
-        if (Position.Y < 0) { Position = new Vector2(Position.X, GetViewport().GetVisibleRect().Size.Y); }
-        if (Position.Y > GetViewport().GetVisibleRect().Size.Y) { Position = new Vector2(Position.X, 0); }
+        GD.Print(Position);
+        if (Position.X < 0) { Position = new Vector2(windowWidth, Position.Y); }
+        if (Position.X > windowWidth) { Position = new Vector2(0, Position.Y); }
+
+        if (Position.Y < 0) { Position = new Vector2(Position.X, windowHeight); }
+        if (Position.Y > windowHeight) { Position = new Vector2(Position.X, 0); }
+    }
+    public void _DestroyApple()
+    {
+        applespawner._SpawnApple();
     }
 }
