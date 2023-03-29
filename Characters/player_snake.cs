@@ -11,32 +11,72 @@ public partial class player_snake : CharacterBody2D
     Vector2 Right = new(1, 0);
 
     apple_spawner_new applespawner;
+    AnimationNodeStateMachinePlayback animationStates;
 
     int windowWidth, windowHeight;
+
     public override void _Ready()
     {
         windowWidth = (int)GetViewport().GetVisibleRect().Size.X;
         windowHeight = (int)GetViewport().GetVisibleRect().Size.Y;
 
         applespawner = GetTree().Root.GetNode("GameLevel").GetNode<apple_spawner_new>("AppleSpawner");
+        animationStates = (AnimationNodeStateMachinePlayback)GetNode<AnimationTree>("AnimationTree").Get("parameters/playback");
+
+    }
+
+    State state = State.Down;
+    public enum State
+    {
+        Up, Down, Left, Right
+    }
+    public void _StateMachine(State state)
+    {
+        switch (state)
+        {
+            case State.Up:
+                if (InputDirection == Down) { break; }
+                InputDirection = new(0, -1);
+                animationStates.Travel("AnimUp");
+                break;
+
+            case State.Down:
+                if (InputDirection == Up) {  break; }
+                InputDirection = new(0, 1);
+                animationStates.Travel("AnimDown");
+                break;
+
+            case State.Left:
+                if (InputDirection == Right) { break; }
+                InputDirection = new(-1, 0);
+                animationStates.Travel("AnimLeft");
+                break;
+
+            case State.Right:
+                if (InputDirection == Left) { break; }
+                InputDirection = new(1, 0);
+                animationStates.Travel("AnimRight");
+                break;
+
+        }
     }
     public override void _PhysicsProcess(double delta)
 	{
 		base._PhysicsProcess(delta);
-		if (Input.IsActionJustPressed("Up") && !(InputDirection == Down)) {
-			InputDirection = new(0, -1);
+		if (Input.IsActionJustPressed("Up")) {
+            _StateMachine(State.Up);
 		}
-        if (Input.IsActionJustPressed("Down") && !(InputDirection == Up))
+        if (Input.IsActionJustPressed("Down"))
         {
-            InputDirection = new(0, 1);
+            _StateMachine(State.Down);
         }
-        if (Input.IsActionJustPressed("Left") && !(InputDirection == Right))
+        if (Input.IsActionJustPressed("Left"))
         {
-            InputDirection = new(-1, 0);
+            _StateMachine(State.Left);
         }
-        if (Input.IsActionJustPressed("Right") && !(InputDirection == Left))
+        if (Input.IsActionJustPressed("Right"))
         {
-            InputDirection = new(1, 0);
+            _StateMachine(State.Right);
         }
 
         var collision = MoveAndCollide(InputDirection*speed);
