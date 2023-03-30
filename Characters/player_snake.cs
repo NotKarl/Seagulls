@@ -4,7 +4,7 @@ using System;
 public partial class player_snake : CharacterBody2D
 {
     [Export] int speed = 3;
-    Vector2 InputDirection = new(0, 0);
+    public Vector2 InputDirection = new(0, 0);
     Vector2 Up = new(0, -1);
     Vector2 Down = new(0, 1);
     Vector2 Left = new(-1, 0);
