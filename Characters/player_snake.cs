@@ -4,7 +4,7 @@ using System;
 public partial class player_snake : CharacterBody2D
 {
     [Export] int speed = 3;
-	Vector2 InputDirection = new(0, 0);
+    Vector2 InputDirection = new(0, 0);
     Vector2 Up = new(0, -1);
     Vector2 Down = new(0, 1);
     Vector2 Left = new(-1, 0);
@@ -22,7 +22,6 @@ public partial class player_snake : CharacterBody2D
 
         applespawner = GetTree().Root.GetNode("GameLevel").GetNode<apple_spawner_new>("AppleSpawner");
         animationStates = (AnimationNodeStateMachinePlayback)GetNode<AnimationTree>("AnimationTree").Get("parameters/playback");
-
     }
 
     State state = State.Down;
@@ -30,7 +29,7 @@ public partial class player_snake : CharacterBody2D
     {
         Up, Down, Left, Right
     }
-    public void _StateMachine(State state)
+    public void StateMachine(State state)
     {
         switch (state)
         {
@@ -41,7 +40,7 @@ public partial class player_snake : CharacterBody2D
                 break;
 
             case State.Down:
-                if (InputDirection == Up) {  break; }
+                if (InputDirection == Up) { break; }
                 InputDirection = new(0, 1);
                 animationStates.Travel("AnimDown");
                 break;
@@ -57,31 +56,30 @@ public partial class player_snake : CharacterBody2D
                 InputDirection = new(1, 0);
                 animationStates.Travel("AnimRight");
                 break;
-
         }
     }
     public override void _PhysicsProcess(double delta)
-	{
-		base._PhysicsProcess(delta);
-		if (Input.IsActionJustPressed("Up")) {
-            _StateMachine(State.Up);
-		}
+    {
+        base._PhysicsProcess(delta);
+        if (Input.IsActionJustPressed("Up"))
+        {
+            StateMachine(State.Up);
+        }
         if (Input.IsActionJustPressed("Down"))
         {
-            _StateMachine(State.Down);
+            StateMachine(State.Down);
         }
         if (Input.IsActionJustPressed("Left"))
         {
-            _StateMachine(State.Left);
+            StateMachine(State.Left);
         }
         if (Input.IsActionJustPressed("Right"))
         {
-            _StateMachine(State.Right);
+            StateMachine(State.Right);
         }
 
-        var collision = MoveAndCollide(InputDirection*speed);
-        if (collision != null) { _CollectApple(); }
-
+        var collision = MoveAndCollide(InputDirection * speed);
+        if (collision != null) { CollectApple(); }
 
         if (Position.X < 0) { Position = new Vector2(windowWidth, Position.Y); }
         if (Position.X > windowWidth) { Position = new Vector2(0, Position.Y); }
@@ -89,8 +87,8 @@ public partial class player_snake : CharacterBody2D
         if (Position.Y < 0) { Position = new Vector2(Position.X, windowHeight); }
         if (Position.Y > windowHeight) { Position = new Vector2(Position.X, 0); }
     }
-    public void _CollectApple()
+    public void CollectApple()
     {
-        applespawner._SpawnApple();
+        applespawner.SpawnApple();
     }
 }
