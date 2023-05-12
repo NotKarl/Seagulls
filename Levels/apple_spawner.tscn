@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://8p6lbnl1p816"]
-
-[ext_resource type="Script" path="res://Levels/apple_spawner_new.cs" id="1_g4b1t"]
-
-[node name="AppleSpawner" type="Node2D"]
-script = ExtResource("1_g4b1t")
