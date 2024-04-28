@@ -11,5 +11,9 @@ class SEAGULLS_API CustomMapGenerator
 {
 public:
 	CustomMapGenerator();
+
+	UFUNCTION(BlueprintCallable, Category = "Generator")
+	void Generate();
+	
 	~CustomMapGenerator();
 };

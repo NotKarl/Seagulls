@@ -7,6 +7,11 @@ CustomMapGenerator::CustomMapGenerator()
 {
 }
 
+void CustomMapGenerator::Generate()
+{
+	
+}
+
 CustomMapGenerator::~CustomMapGenerator()
 {
 }
