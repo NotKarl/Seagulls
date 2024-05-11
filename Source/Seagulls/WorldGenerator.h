@@ -32,13 +32,15 @@ public:
 		int NumOfSectionsY = 2;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		int SectionIndex = 0;
+		int MeshSectionIndex = 0;
 	
-	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	UPROPERTY(BlueprintReadOnly)
 		UProceduralMeshComponent* TerrainMesh;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		UMaterialInterface* TerrainMaterial = nullptr;
+
+	
 	
 protected:
 	// Called when the game starts or when spawned
@@ -51,4 +53,6 @@ public:
 	UFUNCTION(BlueprintCallable)
 		void GenerateTerrain(const int SectionIndexX, const int SectionIndexY);
 
+	float GetHeight(const FVector2D Location);
+	float PerlinNoiseExtended(const FVector2D Location, const float Scale, const float Amplitude, const FVector2D offset);
 };
